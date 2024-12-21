@@ -1,0 +1,6 @@
+# Temporary folder
+tmp
+
+# mise-en-place
+.mise.local.toml
+.mise.*.local.toml

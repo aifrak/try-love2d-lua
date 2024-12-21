@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.3/.schema/devbox.schema.json",
+  "packages": {
+    "lua54Packages.lua": "5.4.7",
+    "shellcheck":        "0.10.0",
+    "shfmt":             "3.10.0"
+  }
+}
