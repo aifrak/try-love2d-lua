@@ -1,2 +1,2 @@
 new_globals = { '_', 'love' }
-exclude_files = { '**/.*' }
+include_files = {"lib", "spec/*.lua", "scripts/*.lua", "*.rockspec", "*.luacheckrc"}

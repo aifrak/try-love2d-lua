@@ -1,0 +1,23 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "EditorConfig.EditorConfig",
+    // Git
+    "eamodio.gitlens",
+    // Shell
+    "foxundermoon.shell-format",
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "DavidAnson.vscode-markdownlint",
+    // TOML
+    "tamasfe.even-better-toml",
+    "streetsidesoftware.code-spell-checker",
+    // Lua
+    "sumneko.lua",
+    // Love
+    "bschulte.love",
+    "CodingJinxx.love2d-snippets",
+    "pixelbyte-studios.pixelbyte-love2d"
+  ],
+  "unwantedRecommendations": []
+}
