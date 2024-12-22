@@ -2,8 +2,7 @@
 
 ## Install local environment
 
-We use [devbox](https://www.jetify.com/devbox) to install the necesary packages
-and [mise](https://mise.jdx.dev/) to install missing packages and run tasks.
+We use [devbox](https://www.jetify.com/devbox) to install the necessary packages.
 
 Install [devbox](https://www.jetify.com/docs/devbox/quickstart/) (do it only once):
 
@@ -51,10 +50,8 @@ VSCode:
 code .
 ```
 
-#### Run a task
-
-To see available tasks or executed one of them, run with this command:
+#### Run the game (WSL)
 
 ```sh
-mise run
+love.exe lib
 ```
