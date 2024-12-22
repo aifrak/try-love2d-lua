@@ -1,10 +1,13 @@
-function love.load()
+local rectangle = require("rectangle")
 
+local rect
+
+function love.load()
+  rect = rectangle.createRectangle()
 end
 
 function love.update(dt)
-  local rectangle = require("rectangle")
-  rectangle.update(dt)
+  rectangle.update(rect, dt)
 end
 
 function love.draw()
@@ -12,6 +15,5 @@ function love.draw()
   love.graphics.print("Hello World", 400, 300)
 
   -- Draw a coloured rectangle.
-  local rectangle = require("rectangle")
-  rectangle.draw()
+  rectangle.draw(rect)
 end
