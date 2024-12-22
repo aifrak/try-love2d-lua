@@ -1,6 +1,6 @@
 local rectangle = {}
 
-function rectangle.createRectangle()
+function rectangle.new()
   local rect = {}
   rect.x = 150
   rect.y = 150
@@ -10,17 +10,17 @@ function rectangle.createRectangle()
   return rect
 end
 
-function rectangle.update(rect, dt)
+function rectangle:update(rect, dt)
   if love.keyboard.isDown("right") then
     rect.x = rect.x + 100 * dt
   elseif love.keyboard.isDown("left") then
     rect.x = rect.x - 100 * dt
   end
 
-  return rect
+  return self
 end
 
-function rectangle.draw(rect)
+function rectangle:draw(rect)
   love.graphics.setColor(0, 0.4, 0.4)
   love.graphics.rectangle(
     "fill",
@@ -29,6 +29,8 @@ function rectangle.draw(rect)
     rect.width,
     rect.height
   )
+
+  return self
 end
 
 return rectangle

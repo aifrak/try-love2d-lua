@@ -1,30 +1,22 @@
-local rectangle = require("rectangle")
-
-local rects = {}
+local rectangles = require("rectangles")
 
 function love.load()
-  local rect = rectangle.createRectangle()
-  table.insert(rects, rect)
+  rectangles:load()
 end
 
 function love.update(dt)
-  for _, rect in ipairs(rects) do
-    rectangle.update(rect, dt)
-  end
+  rectangles:updateAll(dt)
 end
 
 function love.draw()
   love.graphics.setColor(255, 255, 255)
   love.graphics.print("Hello World", 400, 300)
 
-  for _, rect in ipairs(rects) do
-    rectangle.draw(rect)
-  end
+  rectangles:drawAll()
 end
 
 function love.keypressed(key)
   if key == "space" then
-    local rect = rectangle.createRectangle()
-    table.insert(rects, rect)
+    rectangles:createRectangle()
   end
 end
