@@ -4,5 +4,6 @@
   "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.rulers": [80]
-  }
+  },
+  "pixelbyte.love2d.srcDir": "./lib"
 }
