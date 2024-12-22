@@ -16,6 +16,8 @@ function rectangle.update(rect, dt)
   elseif love.keyboard.isDown("left") then
     rect.x = rect.x - 100 * dt
   end
+
+  return rect
 end
 
 function rectangle.draw(rect)
