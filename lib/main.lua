@@ -1,3 +1,4 @@
+local Assets = require "assets"
 local Rectangles = require "rectangles"
 local Tick = require "tick"
 
@@ -5,7 +6,8 @@ local draw_rectangle = false
 local myImage
 
 function love.load()
-  myImage = love.graphics.newImage("assets/images/sheep.png")
+  -- myImage = love.graphics.newImage(Game.assets.IMAGES_PATH .. "sheep.png")
+  myImage = love.graphics.newImage(Assets.image_path("sheep.png"))
 
   love.graphics.setBackgroundColor(love.math.colorFromBytes(181, 121, 121))
 
