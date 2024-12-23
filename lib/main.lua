@@ -1,7 +1,7 @@
 local Rectangles = require "rectangles"
 local Tick = require "tick"
 
-local drawRectangle = false
+local draw_rectangle = false
 local myImage
 
 function love.load()
@@ -13,7 +13,7 @@ function love.load()
 
   --The first argument is a function
   --The second argument is the time it takes to call the function
-  Tick.delay(function() drawRectangle = true end, 2)
+  Tick.delay(function() draw_rectangle = true end, 2)
 end
 
 function love.update(dt)
@@ -31,7 +31,7 @@ function love.draw()
   Rectangles:drawAll()
 
   --if drawRectangle is true then draw a rectangle
-  if drawRectangle then
+  if draw_rectangle then
     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
     love.graphics.rectangle("fill", 100, 100, 300, 200)
   end
