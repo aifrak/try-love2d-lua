@@ -1,6 +1,6 @@
-local rectangle = {}
+local Rectangle = {}
 
-function rectangle.new()
+function Rectangle.new()
   local rect = {}
   rect.x = 150
   rect.y = 150
@@ -10,4 +10,4 @@ function rectangle.new()
   return rect
 end
 
-return rectangle
+return Rectangle

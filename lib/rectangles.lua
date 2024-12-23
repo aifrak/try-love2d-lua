@@ -1,23 +1,24 @@
-local rectangle = require "rectangle"
+local Rectangles = {}
 
-local rectangles = {}
+local Rectangle = require "rectangle"
+
 local tableRectangles = {}
 
-function rectangles:load()
-  local rect = rectangle:new()
+function Rectangles:load()
+  local rect = Rectangle:new()
   table.insert(tableRectangles, rect)
 
   return self
 end
 
-function rectangles:createRectangle()
-  local rect = rectangle:new()
+function Rectangles:createRectangle()
+  local rect = Rectangle:new()
   table.insert(tableRectangles, rect)
 
   return self
 end
 
-function rectangle:update(rect, dt)
+function Rectangle:update(rect, dt)
   if love.keyboard.isDown("right") then
     rect.x = rect.x + 100 * dt
   elseif love.keyboard.isDown("left") then
@@ -27,15 +28,15 @@ function rectangle:update(rect, dt)
   return self
 end
 
-function rectangles:updateAll(dt)
+function Rectangles:updateAll(dt)
   for _, rect in ipairs(tableRectangles) do
-    rectangle:update(rect, dt)
+    Rectangle:update(rect, dt)
   end
 
   return self
 end
 
-function rectangle:draw(rect)
+function Rectangle:draw(rect)
   love.graphics.setColor(0, 0.4, 0.4)
   love.graphics.rectangle(
     "fill",
@@ -48,12 +49,12 @@ function rectangle:draw(rect)
   return self
 end
 
-function rectangles:drawAll()
+function Rectangles:drawAll()
   for _, rect in ipairs(tableRectangles) do
-    rectangle:draw(rect)
+    Rectangle:draw(rect)
   end
 
   return self
 end
 
-return rectangles
+return Rectangles
