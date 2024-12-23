@@ -37,7 +37,7 @@ function Rectangles:updateAll(dt)
 end
 
 function Rectangle:draw(rect)
-  love.graphics.setColor(0, 0.4, 0.4)
+  love.graphics.setColor(love.math.colorFromBytes(0, 102, 102))
   love.graphics.rectangle(
     "fill",
     rect.x,
