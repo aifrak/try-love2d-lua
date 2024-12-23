@@ -1,4 +1,4 @@
-local rectangles = require("rectangles")
+local rectangles = require "rectangles"
 
 function love.load()
   rectangles:load()

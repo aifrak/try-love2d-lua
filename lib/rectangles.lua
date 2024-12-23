@@ -1,4 +1,4 @@
-local rectangle = require("rectangle")
+local rectangle = require "rectangle"
 
 local rectangles = {}
 local tableRectangles = {}
