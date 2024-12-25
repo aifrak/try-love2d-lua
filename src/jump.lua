@@ -13,7 +13,7 @@ function Jump.new()
 end
 
 function Jump:load()
-  image = love.graphics.newImage(Assets.image_path("jump.png"))
+  image = love.graphics.newImage(Assets.image_path("jump_2.png"))
 
   local width = image:getWidth()
   local height = image:getHeight()
@@ -21,13 +21,21 @@ function Jump:load()
   local frame_width = 117
   local frame_height = 233
 
+  local maxFrames = 5
+
   -- Next 2 arguments are the width and height of our quad.
   -- The width of a frame in our image is 117 and the height is 233.
   -- The last 2 arguments are the width and height of the full image
-  for i = 0, 4 do
-    table.insert(frames,
-      love.graphics.newQuad(i * frame_width, 0, frame_width, frame_height, width,
-        height))
+  for i = 0, 2 do
+    for j = 0, 2 do
+      table.insert(frames,
+        love.graphics.newQuad(j * frame_width, i * frame_height, frame_width,
+          frame_height, width,
+          height))
+      if #frames == maxFrames then
+        break
+      end
+    end
   end
 
   return self
