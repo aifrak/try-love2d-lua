@@ -1,7 +1,7 @@
 {
   //
   "search.exclude": {
-    "**/lib/vendors": true
+    "**/src/vendors": true
   },
   // Lua
   "Lua.workspace.library": ["${3rd}/love2d/library"],
@@ -9,5 +9,5 @@
   "[lua]": {
     "editor.rulers": [80]
   },
-  "pixelbyte.love2d.srcDir": "./lib"
+  "pixelbyte.love2d.srcDir": "./src"
 }

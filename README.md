@@ -53,5 +53,5 @@ code .
 #### Run the game (WSL)
 
 ```sh
-love.exe lib
+love.exe src
 ```
