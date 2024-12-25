@@ -2,6 +2,7 @@ local Assets = require "assets"
 local Rectangles = require "rectangles"
 local Tick = require "vendors.tick"
 local Jump = require "jump"
+local Maze = require "maze"
 
 local draw_rectangle = false
 local myImage
@@ -21,6 +22,8 @@ function love.load()
 
   jump = Jump.new()
   Jump:load()
+
+  Maze:load()
 end
 
 function love.update(dt)
@@ -44,6 +47,8 @@ function love.draw()
     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
     love.graphics.rectangle("fill", 100, 100, 300, 200)
   end
+
+  Maze:draw()
 end
 
 function love.keypressed(key)
