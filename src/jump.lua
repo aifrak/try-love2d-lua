@@ -3,6 +3,7 @@ local Assets = require "assets"
 local Jump = {}
 
 local frames = {}
+local image
 
 function Jump.new()
   local jump = {}
@@ -12,9 +13,21 @@ function Jump.new()
 end
 
 function Jump:load()
-  for i = 1, 5 do
+  image = love.graphics.newImage(Assets.image_path("jump.png"))
+
+  local width = image:getWidth()
+  local height = image:getHeight()
+
+  local frame_width = 117
+  local frame_height = 233
+
+  -- Next 2 arguments are the width and height of our quad.
+  -- The width of a frame in our image is 117 and the height is 233.
+  -- The last 2 arguments are the width and height of the full image
+  for i = 0, 4 do
     table.insert(frames,
-      love.graphics.newImage(Assets.image_path("jump" .. i .. ".png")))
+      love.graphics.newQuad(i * frame_width, 0, frame_width, frame_height, width,
+        height))
   end
 
   return self
@@ -39,7 +52,7 @@ function Jump:draw(jump)
   -- To solve this we round the number down with math.floor. So 1.016 will
   -- become 1.
   love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
-  love.graphics.draw(frames[math.floor(jump.currentFrame)])
+  love.graphics.draw(image, frames[math.floor(jump.currentFrame)], 100, 100)
 
   return self
 end
