@@ -13,7 +13,7 @@ function Jump.new()
 end
 
 function Jump:load()
-  image = love.graphics.newImage(Assets.image_path("jump_2.png"))
+  image = love.graphics.newImage(Assets.image_path("jump_3.png"))
 
   local width = image:getWidth()
   local height = image:getHeight()
@@ -26,10 +26,17 @@ function Jump:load()
   -- Next 2 arguments are the width and height of our quad.
   -- The width of a frame in our image is 117 and the height is 233.
   -- The last 2 arguments are the width and height of the full image
+
+  -- And now our quads are in the correct position. Here's an image visualizing
+  -- how we position the quad. So we add 1, then add frame_width + 2, multiplied
+  -- by i.
+  -- This way we position the quad correctly for each frame.
   for i = 0, 2 do
     for j = 0, 2 do
       table.insert(frames,
-        love.graphics.newQuad(j * frame_width, i * frame_height, frame_width,
+        love.graphics.newQuad(1 + j * (frame_width + 2),
+          1 + i * (frame_height + 2),
+          frame_width,
           frame_height, width,
           height))
       if #frames == maxFrames then
