@@ -9,6 +9,7 @@ local tilemap
 local image
 local width
 local height
+local player
 
 
 function Maze:load()
@@ -54,6 +55,13 @@ function Maze:load()
     { 4, 6, 6, 5, 4, 6, 6, 5 }
   }
 
+  --Create our player
+  player = {
+    image = love.graphics.newImage(Assets.image_path("player.png")),
+    tile_x = 2,
+    tile_y = 2
+  }
+
   return self
 end
 
@@ -66,7 +74,36 @@ function Maze:draw()
     end
   end
 
+  --Draw the player and multiple its tile position with the tile width and height
+  love.graphics.draw(player.image, player.tile_x * width, player.tile_y * height)
+
   return self
+end
+
+function Maze:move_player_on_keypressed(key)
+  local x = player.tile_x
+  local y = player.tile_y
+
+  if key == "left" then
+    x = x - 1
+  elseif key == "right" then
+    x = x + 1
+  elseif key == "up" then
+    y = y - 1
+  elseif key == "down" then
+    y = y + 1
+  end
+
+  if Maze:isEmpty(x, y) then
+    player.tile_x = x
+    player.tile_y = y
+  end
+
+  return self
+end
+
+function Maze:isEmpty(x, y)
+  return tilemap[y][x] == 0
 end
 
 return Maze

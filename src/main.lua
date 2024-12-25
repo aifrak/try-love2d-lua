@@ -55,4 +55,6 @@ function love.keypressed(key)
   if key == "space" then
     Rectangles:createRectangle()
   end
+
+  Maze:move_player_on_keypressed(key)
 end
