@@ -1,6 +1,6 @@
 local Assets = require "assets"
 local Rectangles = require "rectangles"
-local Tick = require "tick"
+local Tick = require "lib.vendors.tick"
 local Jump = require "jump"
 
 local draw_rectangle = false
