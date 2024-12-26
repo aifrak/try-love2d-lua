@@ -1,6 +1,5 @@
 local Assets = {}
 
-
 -- Images
 local IMAGES_PATH = "assets/images/"
 local PLAYERS_PATH = "assets/images/sprites/characters/players/"
