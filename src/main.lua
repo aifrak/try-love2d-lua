@@ -6,10 +6,19 @@ local Maze = require "maze"
 
 local draw_rectangle = false
 local myImage
+local song
+local sfx
 
 local jump
 
 function love.load()
+  song = love.audio.newSource(Assets.music_path("song.ogg"), "stream")
+  song:setLooping(true)
+  song:play()
+
+  sfx = love.audio.newSource(Assets.sfx_path("sfx.ogg"),
+    "static")
+
   myImage = love.graphics.newImage(Assets.image_path("sheep.png"))
 
   love.graphics.setBackgroundColor(love.math.colorFromBytes(181, 121, 121))
@@ -54,6 +63,7 @@ end
 function love.keypressed(key)
   if key == "space" then
     Rectangles:createRectangle()
+    sfx:play()
   end
 
   Maze:move_player_on_keypressed(key)
