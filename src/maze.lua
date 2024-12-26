@@ -13,7 +13,7 @@ local player
 
 
 function Maze:load()
-  image = love.graphics.newImage(Assets.image_path("tileset.png"))
+  image = love.graphics.newImage(Assets.maps_path("tileset.png"))
 
   --We need the full image width and height for creating the quads
   local image_width = image:getWidth()
@@ -57,7 +57,7 @@ function Maze:load()
 
   --Create our player
   player = {
-    image = love.graphics.newImage(Assets.image_path("player.png")),
+    image = love.graphics.newImage(Assets.players_path("player.png")),
     tile_x = 2,
     tile_y = 2
   }

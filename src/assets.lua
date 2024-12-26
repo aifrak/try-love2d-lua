@@ -1,19 +1,39 @@
-local Assets = {
-  IMAGES_PATH = "assets/images/",
-  MUSIC_PATH = "assets/audio/music/",
-  SFX_PATH = "assets/audio/sfx/",
-}
+local Assets = {}
+
+
+-- Images
+local IMAGES_PATH = "assets/images/"
+local PLAYERS_PATH = "assets/images/sprites/characters/players/"
+local NPCS_PATH = "assets/images/sprites/characters/npcs/"
+local MAPS_PATH = "assets/images/maps/"
+
+-- Audio
+local MUSIC_PATH = "assets/audio/music/"
+local SFX_PATH = "assets/audio/sfx/"
+
 
 function Assets.image_path(path)
-  return Assets.IMAGES_PATH .. path
+  return IMAGES_PATH .. path
+end
+
+function Assets.players_path(path)
+  return PLAYERS_PATH .. path
+end
+
+function Assets.npcs_path(path)
+  return NPCS_PATH .. path
+end
+
+function Assets.maps_path(path)
+  return MAPS_PATH .. path
 end
 
 function Assets.music_path(path)
-  return Assets.MUSIC_PATH .. path
+  return MUSIC_PATH .. path
 end
 
 function Assets.sfx_path(path)
-  return Assets.SFX_PATH .. path
+  return SFX_PATH .. path
 end
 
 return Assets

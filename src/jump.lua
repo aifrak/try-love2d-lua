@@ -13,7 +13,7 @@ function Jump.new()
 end
 
 function Jump:load()
-  image = love.graphics.newImage(Assets.image_path("jump_3.png"))
+  image = love.graphics.newImage(Assets.npcs_path("jump_3.png"))
 
   local width = image:getWidth()
   local height = image:getHeight()
