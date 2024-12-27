@@ -11,7 +11,6 @@ local width
 local height
 local player
 
-
 function Maze:load()
   image = love.graphics.newImage(Assets.maps_path("tileset.png"))
 

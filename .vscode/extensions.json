@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "EditorConfig.EditorConfig",
+    "emeraldwalk.RunOnSave",
     // Git
     "eamodio.gitlens",
     // Shell
@@ -14,7 +15,7 @@
     "streetsidesoftware.code-spell-checker",
     // Lua
     "sumneko.lua",
-    // Love
+    // Love2D
     "bschulte.love",
     "CodingJinxx.love2d-snippets",
     "pixelbyte-studios.pixelbyte-love2d"

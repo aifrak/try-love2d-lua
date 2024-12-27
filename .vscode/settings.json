@@ -1,5 +1,5 @@
 {
-  //
+  // Excluded directories
   "search.exclude": {
     "**/src/vendors": true
   },
@@ -9,5 +9,15 @@
   "[lua]": {
     "editor.rulers": [80]
   },
-  "pixelbyte.love2d.srcDir": "./src"
+  "pixelbyte.love2d.srcDir": "./src",
+  // Run on Save
+  "emeraldwalk.runonsave": {
+    "commands": [
+      // HACK for Hot Reloading: refresh the game when any files are saved.
+      {
+        "match": "^(?!main.lua).*$",
+        "cmd": "touch ${workspaceFolder}/src/main.lua"
+      }
+    ]
+  }
 }

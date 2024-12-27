@@ -1,3 +1,10 @@
+-- Debug: Hot Reloading
+local Lick = require "vendors.LICK.lick"
+Lick.debug = true
+Lick.reset = true
+Lick.showReloadMessage = true
+Lick.clearPackages = true
+
 local Assets = require "assets"
 local Rectangles = require "rectangles"
 local Tick = require "vendors.tick"
@@ -11,6 +18,7 @@ local sfx
 
 local jump
 
+---@diagnostic disable-next-line: duplicate-set-field
 function love.load()
   song = love.audio.newSource(Assets.music_path("song.ogg"), "stream")
   song:setLooping(true)
@@ -35,12 +43,14 @@ function love.load()
   Maze:load()
 end
 
+---@diagnostic disable-next-line: duplicate-set-field
 function love.update(dt)
   Rectangles:updateAll(dt)
   Tick.update(dt)
   Jump:update(jump, dt)
 end
 
+---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
   love.graphics.setColor(love.math.colorFromBytes(255, 200, 40, 127))
   love.graphics.draw(myImage, 100, 100, 45, -1, -1, 39, 50)
