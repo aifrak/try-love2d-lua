@@ -10,6 +10,7 @@ local Rectangles = require "rectangles"
 local Tick = require "vendors.tick"
 local Jump = require "jump"
 local Maze = require "maze"
+local GoldChase = require "gold_chase"
 
 local draw_rectangle = false
 local myImage
@@ -41,6 +42,8 @@ function love.load()
   Jump:load()
 
   Maze:load()
+
+  GoldChase:load()
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -48,6 +51,7 @@ function love.update(dt)
   Rectangles:updateAll(dt)
   Tick.update(dt)
   Jump:update(jump, dt)
+  GoldChase:update(dt)
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -68,6 +72,7 @@ function love.draw()
   end
 
   Maze:draw()
+  GoldChase:draw()
 end
 
 function love.keypressed(key)
@@ -77,4 +82,7 @@ function love.keypressed(key)
   end
 
   Maze:move_player_on_keypressed(key)
+
+  GoldChase:save_game_on_keypressed(key)
+  GoldChase:restart_on_keypressed(key)
 end

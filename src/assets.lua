@@ -4,6 +4,7 @@ local Assets = {}
 local IMAGES_PATH = "assets/images/"
 local PLAYERS_PATH = "assets/images/sprites/characters/players/"
 local NPCS_PATH = "assets/images/sprites/characters/npcs/"
+local ITEMS_PATH = "assets/images/sprites/items/"
 local MAPS_PATH = "assets/images/maps/"
 
 -- Audio
@@ -21,6 +22,10 @@ end
 
 function Assets.npcs_path(path)
   return NPCS_PATH .. path
+end
+
+function Assets.items_path(path)
+  return ITEMS_PATH .. path
 end
 
 function Assets.maps_path(path)
