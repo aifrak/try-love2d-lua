@@ -7,7 +7,7 @@ Lick.clearPackages = true
 
 local Assets = require "assets"
 local Rectangles = require "rectangles"
-local Tick = require "vendors.tick"
+local Tick = require "vendors.tick.tick"
 local Jump = require "jump"
 local Maze = require "maze"
 local GoldChase = require "gold_chase"
