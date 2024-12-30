@@ -8,6 +8,9 @@ local coins = {}
 
 local player
 local score
+local shakeDuration
+local shakeWait
+local shakeOffset
 local data = {
   x = nil,
   y = nil,
@@ -28,6 +31,9 @@ end
 
 function GoldChase:load()
   score = 0
+  shakeDuration = 0
+  shakeWait = 0
+  shakeOffset = { x = 0, y = 0 }
   player = {
     x = 100,
     y = 100,
@@ -92,6 +98,18 @@ function GoldChase:update(dt)
       table.remove(coins, i)
       player.size = player.size + 1
       score = score + 1
+      shakeDuration = 0.3
+    end
+  end
+
+  if shakeDuration > 0 then
+    shakeDuration = shakeDuration - dt
+    if shakeWait > 0 then
+      shakeWait = shakeWait - dt
+    else
+      shakeOffset.x = love.math.random(-5, 5)
+      shakeOffset.y = love.math.random(-5, 5)
+      shakeWait = 0.05
     end
   end
 
@@ -102,6 +120,13 @@ function GoldChase:draw()
   love.graphics.push() -- Make a copy of the current state and push it onto the stack.
   -- Camera follows the player
   love.graphics.translate(-player.x + 400, -player.y + 300)
+
+  if shakeDuration > 0 then
+    -- This second translate will be done based on the previous translate.
+    -- So it will not reset the previous translate.
+    love.graphics.translate(shakeOffset.x, shakeOffset.y)
+  end
+
   love.graphics.circle("line", player.x, player.y, player.size)
   love.graphics.draw(player.image, player.x, player.y,
     0, 1, 1, player.image:getWidth() / 2, player.image:getHeight() / 2)
