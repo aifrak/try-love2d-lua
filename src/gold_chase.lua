@@ -7,6 +7,7 @@ local Lume = require "vendors.lume.lume"
 local coins = {}
 
 local player
+local score
 local data = {
   x = nil,
   y = nil,
@@ -15,6 +16,7 @@ local data = {
 }
 
 function GoldChase:new()
+  score = 0
   player = {
     x = 100,
     y = 100,
@@ -25,6 +27,7 @@ function GoldChase:new()
 end
 
 function GoldChase:load()
+  score = 0
   player = {
     x = 100,
     y = 100,
@@ -88,6 +91,7 @@ function GoldChase:update(dt)
     if GoldChase.checkCollision(player, coins[i]) then
       table.remove(coins, i)
       player.size = player.size + 1
+      score = score + 1
     end
   end
 
@@ -95,6 +99,9 @@ function GoldChase:update(dt)
 end
 
 function GoldChase:draw()
+  love.graphics.push() -- Make a copy of the current state and push it onto the stack.
+  -- Camera follows the player
+  love.graphics.translate(-player.x + 400, -player.y + 300)
   love.graphics.circle("line", player.x, player.y, player.size)
   love.graphics.draw(player.image, player.x, player.y,
     0, 1, 1, player.image:getWidth() / 2, player.image:getHeight() / 2)
@@ -104,6 +111,14 @@ function GoldChase:draw()
     love.graphics.draw(v.image, v.x, v.y,
       0, 1, 1, v.image:getWidth() / 2, v.image:getHeight() / 2)
   end
+
+  -- Draw score top left of the screen
+  love.graphics.pop() -- Pull the copy of the state of the stack and apply it.
+  -- Alternative 1 way to draw score top left
+  -- love.graphics.translate(player.x - 400, player.y - 300)
+  -- Alternative 2 way to draw score top left
+  -- love.graphics.origin()
+  love.graphics.print(score, 10, 10)
 
   return self
 end

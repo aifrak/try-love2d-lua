@@ -68,7 +68,7 @@ function love.draw()
   --if drawRectangle is true then draw a rectangle
   if draw_rectangle then
     love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
-    love.graphics.rectangle("fill", 100, 100, 300, 200)
+    love.graphics.rectangle("fill", 300, 300, 50, 50)
   end
 
   Maze:draw()
