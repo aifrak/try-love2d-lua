@@ -6,8 +6,11 @@ local Lume = require "vendors.lume.lume"
 -- tables
 local coins = {}
 
-local player
-local score
+local screenCanvas
+local player1
+local player2
+local score1
+local score2
 local shakeDuration
 local shakeWait
 local shakeOffset
@@ -19,36 +22,53 @@ local data = {
 }
 
 function GoldChase:new()
-  score = 0
-  player = {
+  score1 = 0
+  score2 = 0
+  player1 = {
     x = 100,
     y = 100,
     size = 25
+  }
+  player2 = {
+    x = 300,
+    y = 100,
+    size = 25,
   }
 
   return self
 end
 
 function GoldChase:load()
-  score = 0
+  score1 = 0
+  score2 = 0
+
   shakeDuration = 0
   shakeWait = 0
   shakeOffset = { x = 0, y = 0 }
-  player = {
+
+  player1 = {
     x = 100,
     y = 100,
     size = 25,
     image = love.graphics.newImage(Assets.players_path("face.png"))
   }
+  player2 = {
+    x = 300,
+    y = 100,
+    size = 25,
+    image = love.graphics.newImage(Assets.players_path("face.png"))
+  }
+
+  screenCanvas = love.graphics.newCanvas(400, 600)
 
   if love.filesystem.getInfo("savedata.txt") then
     local file = love.filesystem.read("savedata.txt")
     data = Lume.deserialize(file)
 
     --Apply the player info
-    player.x = data.player.x
-    player.y = data.player.y
-    player.size = data.player.size
+    player1.x = data.player.x
+    player1.y = data.player.y
+    player1.size = data.player.size
 
     for i, v in ipairs(data.coins) do
       coins[i] = {
@@ -78,26 +98,43 @@ end
 function GoldChase:update(dt)
   -- Make it moveable with keyboard
   if love.keyboard.isDown("left") then
-    player.x = player.x - 200 * dt
+    player1.x = player1.x - 200 * dt
   elseif love.keyboard.isDown("right") then
-    player.x = player.x + 200 * dt
+    player1.x = player1.x + 200 * dt
   end
 
   -- Note how I start a new if-statement instead of contuing the elseif
   -- I do this because else you wouldn't be able to move diagonally.
   if love.keyboard.isDown("up") then
-    player.y = player.y - 200 * dt
+    player1.y = player1.y - 200 * dt
   elseif love.keyboard.isDown("down") then
-    player.y = player.y + 200 * dt
+    player1.y = player1.y + 200 * dt
+  end
+
+  if love.keyboard.isDown("a") then
+    player2.x = player2.x - 200 * dt
+  elseif love.keyboard.isDown("d") then
+    player2.x = player2.x + 200 * dt
+  end
+
+  if love.keyboard.isDown("w") then
+    player2.y = player2.y - 200 * dt
+  elseif love.keyboard.isDown("s") then
+    player2.y = player2.y + 200 * dt
   end
 
   -- Start at the end, until 1, with steps of -1
   for i = #coins, 1, -1 do
     -- Use coins[i] instead of v
-    if GoldChase.checkCollision(player, coins[i]) then
+    if self.checkCollision(player1, coins[i]) then
       table.remove(coins, i)
-      player.size = player.size + 1
-      score = score + 1
+      player1.size = player1.size + 1
+      score1 = score1 + 1
+      shakeDuration = 0.3
+    elseif self.checkCollision(player2, coins[i]) then
+      table.remove(coins, i)
+      player2.size = player2.size + 1
+      score2 = score2 + 1
       shakeDuration = 0.3
     end
   end
@@ -116,10 +153,11 @@ function GoldChase:update(dt)
   return self
 end
 
-function GoldChase:draw()
+local function drawGame(focus)
   love.graphics.push() -- Make a copy of the current state and push it onto the stack.
+
   -- Camera follows the player
-  love.graphics.translate(-player.x + 400, -player.y + 300)
+  love.graphics.translate(-focus.x + 200, -focus.y + 300)
 
   if shakeDuration > 0 then
     -- This second translate will be done based on the previous translate.
@@ -127,9 +165,13 @@ function GoldChase:draw()
     love.graphics.translate(shakeOffset.x, shakeOffset.y)
   end
 
-  love.graphics.circle("line", player.x, player.y, player.size)
-  love.graphics.draw(player.image, player.x, player.y,
-    0, 1, 1, player.image:getWidth() / 2, player.image:getHeight() / 2)
+  love.graphics.circle("line", player1.x, player1.y, player1.size)
+  love.graphics.draw(player1.image, player1.x, player1.y,
+    0, 1, 1, player1.image:getWidth() / 2, player1.image:getHeight() / 2)
+
+  love.graphics.circle("line", player2.x, player2.y, player2.size)
+  love.graphics.draw(player2.image, player2.x, player2.y,
+    0, 1, 1, player2.image:getWidth() / 2, player2.image:getHeight() / 2)
 
   for _, v in ipairs(coins) do
     love.graphics.circle("line", v.x, v.y, v.size)
@@ -137,13 +179,30 @@ function GoldChase:draw()
       0, 1, 1, v.image:getWidth() / 2, v.image:getHeight() / 2)
   end
 
-  -- Draw score top left of the screen
   love.graphics.pop() -- Pull the copy of the state of the stack and apply it.
-  -- Alternative 1 way to draw score top left
-  -- love.graphics.translate(player.x - 400, player.y - 300)
-  -- Alternative 2 way to draw score top left
-  -- love.graphics.origin()
-  love.graphics.print(score, 10, 10)
+end
+
+function GoldChase:draw()
+  -- Player1
+  love.graphics.setCanvas(screenCanvas)
+  love.graphics.clear()
+  drawGame(player1)
+  -- If we pass no arguments to this function then it will reset to the default canvas.
+  love.graphics.setCanvas()
+  --Draw the canvas
+  love.graphics.draw(screenCanvas)
+
+  -- Player2
+  love.graphics.setCanvas(screenCanvas)
+  love.graphics.clear()
+  drawGame(player2)
+  love.graphics.setCanvas()
+  love.graphics.draw(screenCanvas, 400)
+
+  love.graphics.line(400, 0, 400, 600)
+
+  love.graphics.print("Player 1 - " .. score1, 10, 10)
+  love.graphics.print("Player 2 - " .. score2, 10, 30)
 
   return self
 end
@@ -159,9 +218,9 @@ end
 
 function GoldChase:saveGame()
   data.player = {
-    x = player.x,
-    y = player.y,
-    size = player.size
+    x = player1.x,
+    y = player1.y,
+    size = player1.size
   }
 
   data.coins = {}
