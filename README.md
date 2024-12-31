@@ -1,5 +1,10 @@
 # try-love2d-lua
 
+Following tutotial from <https://sheepolution.com/learn/book/contents> to learn
+[Lua](https://www.lua.org/) and [Love2D](https://love2d.org/).
+
+All games are stacked on another.
+
 ## Install local environment
 
 We use [devbox](https://www.jetify.com/devbox) to install the necessary packages.
