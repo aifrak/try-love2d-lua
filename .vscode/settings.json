@@ -3,9 +3,6 @@
   "search.exclude": {
     "**/src/vendors": true
   },
-  // Lua
-  "Lua.workspace.library": ["${3rd}/love2d/library"],
-  "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.rulers": [80]
   },
