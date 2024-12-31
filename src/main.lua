@@ -1,9 +1,9 @@
 -- Debug: Hot Reloading
--- local Lick = require "vendors.LICK.lick"
--- Lick.debug = true
--- Lick.reset = true
--- Lick.showReloadMessage = true
--- Lick.clearPackages = true
+local Lick = require "vendors.LICK.lick"
+Lick.debug = true
+Lick.reset = true
+Lick.showReloadMessage = true
+Lick.clearPackages = true
 
 local Assets = require "assets"
 local Rectangles = require "rectangles"
