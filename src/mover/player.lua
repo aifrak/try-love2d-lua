@@ -4,6 +4,8 @@ local Player = Entity:extend()
 
 function Player:new(x, y)
   Player.super.new(self, x, y, "sprites/characters/players/mover.png")
+
+  self.strength = 10
 end
 
 function Player:update(dt)

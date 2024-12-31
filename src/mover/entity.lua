@@ -15,12 +15,15 @@ function Entity:new(x, y, image_path)
   self.last.y = self.y
 
   self.strength = 0
+  self.tempStrength = 0
 end
 
 function Entity:update(_)
   -- Set the current position to be the previous position
   self.last.x = self.x
   self.last.y = self.y
+
+  self.tempStrength = self.strength
 
   return self
 end
@@ -40,13 +43,12 @@ function Entity:wasHorizontallyAligned(e)
 end
 
 function Entity:resolveCollision(e)
-  if self.strength > e.strength then
-    e:resolveCollision(self)
-    -- Return because we don't want to continue this function.
-    return
+  if self.tempStrength > e.tempStrength then
+    return e:resolveCollision(self)
   end
 
   if self:checkCollision(e) then
+    self.tempStrength = e.tempStrength
     if self:wasVerticallyAligned(e) then
       if self.x + self.width / 2 < e.x + e.width / 2 then
         -- pusback = the right side of the player - the left side of the wall
@@ -68,7 +70,15 @@ function Entity:resolveCollision(e)
         self.y = self.y + pushback
       end
     end
+
+    -- There was collision! After we've resolved the collision return true
+    return true
   end
+
+  -- There was NO collision, return false
+  -- (Though not returning anything would've been fine as well)
+  -- (Since returning nothing would result in the returned value being nil)
+  return false
 end
 
 function Entity:draw()
