@@ -12,12 +12,18 @@ local Jump = require "jump"
 local Maze = require "maze"
 local GoldChase = require "gold_chase"
 
+local Player = require "mover.player"
+local Wall = require "mover.wall"
+
 local draw_rectangle = false
 local myImage
 local song
 local sfx
 
 local jump
+
+local player
+local wall
 
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.load()
@@ -44,6 +50,9 @@ function love.load()
   Maze:load()
 
   GoldChase:load()
+
+  player = Player(100, 100)
+  wall = Wall(200, 100)
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -52,6 +61,10 @@ function love.update(dt)
   Tick.update(dt)
   Jump:update(jump, dt)
   GoldChase:update(dt)
+
+  player:update(dt)
+  wall:update(dt)
+  player:resolveCollision(wall)
 end
 
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -73,6 +86,9 @@ function love.draw()
 
   Maze:draw()
   GoldChase:draw()
+
+  player:draw()
+  wall:draw()
 end
 
 function love.keypressed(key)
