@@ -4,20 +4,48 @@ local Box = require "mover.box"
 
 local Mover = {}
 
-local player
-local wall
-local box
+-- tables
+local walls
 local objects
+
+local player
+local box
+local map
 
 function Mover:load()
   player = Player(100, 100)
-  wall = Wall(200, 100)
   box = Box(400, 150)
 
   objects = {}
   table.insert(objects, player)
-  table.insert(objects, wall)
   table.insert(objects, box)
+
+  walls = {}
+
+  map = {
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 },
+    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 },
+    { 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+  }
+
+  -- Add walls according to the map
+  for i, v in ipairs(map) do
+    for j, w in ipairs(v) do
+      if w == 1 then
+        -- Add all the walls to the walls table instead.
+        table.insert(walls, Wall((j - 1) * 50, (i - 1) * 50))
+      end
+    end
+  end
 
   return self
 end
@@ -25,6 +53,10 @@ end
 function Mover:update(dt)
   -- Update all the objects
   for _, v in ipairs(objects) do
+    v:update(dt)
+  end
+
+  for _, v in ipairs(walls) do
     v:update(dt)
   end
 
@@ -53,6 +85,16 @@ function Mover:update(dt)
         end
       end
     end
+
+    -- For each object check collision with every wall.
+    for _, wall in ipairs(walls) do
+      for _, object in ipairs(objects) do
+        local collision = object:resolveCollision(wall)
+        if collision then
+          loop = true
+        end
+      end
+    end
   end
 
   return self
@@ -61,6 +103,11 @@ end
 function Mover:draw()
   -- Draw all the objects
   for _, v in ipairs(objects) do
+    v:draw()
+  end
+
+  -- Draw the walls
+  for _, v in ipairs(walls) do
     v:draw()
   end
 

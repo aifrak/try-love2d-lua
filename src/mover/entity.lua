@@ -14,16 +14,28 @@ function Entity:new(x, y, image_path)
   self.last.x = self.x
   self.last.y = self.y
 
+  -- It is like weight between 2 objects. If a player moves an item with more
+  -- strength, the player will be blocked.
   self.strength = 0
   self.tempStrength = 0
+
+  -- Add the gravity and weight properties
+  self.gravity = 0
+  self.weight = 400
 end
 
-function Entity:update(_)
+function Entity:update(dt)
   -- Set the current position to be the previous position
   self.last.x = self.x
   self.last.y = self.y
 
   self.tempStrength = self.strength
+
+  -- Increase the gravity using the weight
+  self.gravity = self.gravity + self.weight * dt
+
+  -- Increase the y-position
+  self.y = self.y + self.gravity * dt
 
   return self
 end
@@ -64,6 +76,10 @@ function Entity:resolveCollision(e)
         -- pusback = the bottom side of the player - the top side of the wall
         local pushback = self.y + self.height - e.y
         self.y = self.y - pushback
+        -- We're touching a wall from the bottom
+        -- This means we're standing on the ground.
+        -- Reset the gravity
+        self.gravity = 0
       else
         -- pusback = the bottom side of the wall - the top side of the player
         local pushback = e.y + e.height - self.y
