@@ -63,27 +63,19 @@ function Entity:resolveCollision(e)
     self.tempStrength = e.tempStrength
     if self:wasVerticallyAligned(e) then
       if self.x + self.width / 2 < e.x + e.width / 2 then
-        -- pusback = the right side of the player - the left side of the wall
-        local pushback = self.x + self.width - e.x
-        self.x = self.x - pushback
+        self:collide(e, "right")
       else
-        -- pusback = the right side of the wall - the left side of the player
-        local pushback = e.x + e.width - self.x
-        self.x = self.x + pushback
+        self:collide(e, "left")
       end
     elseif self:wasHorizontallyAligned(e) then
       if self.y + self.height / 2 < e.y + e.height / 2 then
-        -- pusback = the bottom side of the player - the top side of the wall
-        local pushback = self.y + self.height - e.y
-        self.y = self.y - pushback
+        self:collide(e, "bottom")
         -- We're touching a wall from the bottom
         -- This means we're standing on the ground.
         -- Reset the gravity
         self.gravity = 0
       else
-        -- pusback = the bottom side of the wall - the top side of the player
-        local pushback = e.y + e.height - self.y
-        self.y = self.y + pushback
+        self:collide(e, "top")
       end
     end
 
@@ -95,6 +87,30 @@ function Entity:resolveCollision(e)
   -- (Though not returning anything would've been fine as well)
   -- (Since returning nothing would result in the returned value being nil)
   return false
+end
+
+-- When the entity collides with something with his right side
+function Entity:collide(e, direction)
+  if direction == "right" then
+    -- pusback = the right side of the player - the left side of the wall
+    local pushback = self.x + self.width - e.x
+    self.x = self.x - pushback
+  elseif direction == "left" then
+    -- pusback = the right side of the wall - the left side of the player
+    local pushback = e.x + e.width - self.x
+    self.x = self.x + pushback
+  elseif direction == "bottom" then
+    -- pusback = the bottom side of the player - the top side of the wall
+    local pushback = self.y + self.height - e.y
+    self.y = self.y - pushback
+    self.gravity = 0
+  elseif direction == "top" then
+    -- pusback = the bottom side of the wall - the top side of the player
+    local pushback = e.y + e.height - self.y
+    self.y = self.y + pushback
+  end
+
+  return self
 end
 
 function Entity:draw()

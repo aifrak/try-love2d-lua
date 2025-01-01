@@ -90,4 +90,6 @@ function love.keypressed(key)
 
   GoldChase:save_game_on_keypressed(key)
   GoldChase:restart_on_keypressed(key)
+
+  Mover.control_player_on_keypressed(key)
 end

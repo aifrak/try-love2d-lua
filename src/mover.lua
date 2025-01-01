@@ -114,4 +114,10 @@ function Mover:draw()
   return self
 end
 
+function Mover.control_player_on_keypressed(key)
+  if key == "up" then
+    player:jump()
+  end
+end
+
 return Mover

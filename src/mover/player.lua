@@ -6,6 +6,8 @@ function Player:new(x, y)
   Player.super.new(self, x, y, "sprites/characters/players/mover.png")
 
   self.strength = 10
+
+  self.canJump = false
 end
 
 function Player:update(dt)
@@ -17,8 +19,22 @@ function Player:update(dt)
     self.x = self.x + 200 * dt
   end
 
-  if love.keyboard.isDown("up") then
-    self.y = self.y - 200 * dt
+  if self.last.y ~= self.y then
+    self.canJump = false
+  end
+end
+
+function Player:jump()
+  if self.canJump then
+    self.gravity = -300
+    self.canJump = false
+  end
+end
+
+function Player:collide(e, direction)
+  Player.super.collide(self, e, direction)
+  if direction == "bottom" then
+    self.canJump = true
   end
 end
 
