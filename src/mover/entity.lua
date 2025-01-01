@@ -63,19 +63,35 @@ function Entity:resolveCollision(e)
     self.tempStrength = e.tempStrength
     if self:wasVerticallyAligned(e) then
       if self.x + self.width / 2 < e.x + e.width / 2 then
-        self:collide(e, "right")
+        -- Call checkResolve for both parties.
+        local a = self:checkResolve(e, "right")
+        local b = e:checkResolve(self, "left")
+        -- If both a and b are true then resolve the collision.
+        if a and b then
+          self:collide(e, "right")
+        end
       else
-        self:collide(e, "left")
+        -- Call checkResolve for both parties.
+        local a = self:checkResolve(e, "left")
+        local b = e:checkResolve(self, "right")
+        -- If both a and b are true then resolve the collision.
+        if a and b then
+          self:collide(e, "left")
+        end
       end
     elseif self:wasHorizontallyAligned(e) then
       if self.y + self.height / 2 < e.y + e.height / 2 then
-        self:collide(e, "bottom")
-        -- We're touching a wall from the bottom
-        -- This means we're standing on the ground.
-        -- Reset the gravity
-        self.gravity = 0
+        local a = self:checkResolve(e, "bottom")
+        local b = e:checkResolve(self, "top")
+        if a and b then
+          self:collide(e, "bottom")
+        end
       else
-        self:collide(e, "top")
+        local a = self:checkResolve(e, "bottom")
+        local b = e:checkResolve(self, "top")
+        if a and b then
+          self:collide(e, "top")
+        end
       end
     end
 
@@ -87,6 +103,10 @@ function Entity:resolveCollision(e)
   -- (Though not returning anything would've been fine as well)
   -- (Since returning nothing would result in the returned value being nil)
   return false
+end
+
+function Entity:checkResolve(e, direction)
+  return true
 end
 
 -- When the entity collides with something with his right side

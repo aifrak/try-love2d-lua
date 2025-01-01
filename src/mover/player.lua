@@ -1,4 +1,5 @@
 local Entity = require "mover.entity"
+local Box = require "mover.box"
 
 local Player = Entity:extend()
 
@@ -36,6 +37,18 @@ function Player:collide(e, direction)
   if direction == "bottom" then
     self.canJump = true
   end
+end
+
+function Player:checkResolve(e, direction)
+  if e:is(Box) then
+    if direction == "bottom" then
+      return true
+    else
+      return false
+    end
+  end
+
+  return self
 end
 
 return Player
