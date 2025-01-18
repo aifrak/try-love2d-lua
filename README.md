@@ -3,7 +3,9 @@
 Following tutotial from <https://sheepolution.com/learn/book/contents> to learn
 [Lua](https://www.lua.org/) and [Love2D](https://love2d.org/).
 
-All games are stacked on another.
+All games are stacked on each other, because I was lazy to create a project for each of them.
+
+There is also custom code to do some experiment.
 
 ## Install local environment
 
