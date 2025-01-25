@@ -1,4 +1,4 @@
-local Object = require "vendors.classic.classic"
+local Object = require "classic"
 local Assets = require "assets"
 
 local Entity = Object:extend()

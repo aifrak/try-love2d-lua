@@ -2,6 +2,6 @@
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "runtime.version": "LuaJIT",
   "diagnostics.globals": ["love"],
-  "workspace.library": ["${3rd}/love2d/library"],
+  "workspace.library": ["${3rd}/love2d/library", "src/lib", "src/vendor"],
   "workspace.checkThirdParty": false
 }

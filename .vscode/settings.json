@@ -1,6 +1,7 @@
 {
   // Excluded directories
   "search.exclude": {
+    "**/src/lib": true,
     "**/src/vendors": true
   },
   "[lua]": {

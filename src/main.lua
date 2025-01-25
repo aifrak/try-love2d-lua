@@ -1,5 +1,10 @@
+package.path = "./src/lib/?/?.lua;"
+    .. "./src/lib/?/init.lua;"
+    .. "./src/lib/?.lua;"
+    .. package.path
+
 -- Debug: Hot Reloading
-local Lick = require "vendors.LICK.lick"
+local Lick = require "lick"
 Lick.debug = true
 Lick.reset = true
 Lick.showReloadMessage = true
@@ -7,9 +12,10 @@ Lick.clearPackages = true
 Lick.entryPoint = "main.lua"
 Lick.fileExtensions = { ".lua", ".ogg", ".png" }
 
+local Inspect = require "inspect"
 local Assets = require "assets"
 local Rectangles = require "rectangles"
-local Tick = require "vendors.tick.tick"
+local Tick = require "tick"
 local Jump = require "jump"
 local Maze = require "maze"
 local GoldChase = require "gold_chase"
@@ -21,6 +27,9 @@ local song
 local sfx
 
 local jump
+
+print(Inspect("test"))
+
 
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.load()

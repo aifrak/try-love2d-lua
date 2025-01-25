@@ -1,0 +1,15 @@
+[submodule "src/lib/classic"]
+	path = src/lib/classic
+	url = git@github.com:rxi/classic.git
+[submodule "src/lib/lick"]
+	path = src/lib/lick
+	url = git@github.com:usysrc/LICK.git
+[submodule "src/lib/lume"]
+	path = src/lib/lume
+	url = git@github.com:rxi/lume.git
+[submodule "src/lib/tick"]
+	path = src/lib/tick
+	url = git@github.com:rxi/tick.git
+[submodule "src/lib/inspect"]
+	path = src/lib/inspect
+	url = git@github.com:kikito/inspect.lua.git

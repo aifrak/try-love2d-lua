@@ -1,7 +1,7 @@
 local GoldChase = {}
 
 local Assets = require "assets"
-local Lume = require "vendors.lume.lume"
+local Lume = require "lume"
 
 -- tables
 local coins = {}
