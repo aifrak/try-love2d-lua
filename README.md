@@ -9,6 +9,12 @@ There is also custom code to do some experiment.
 
 ## Install local environment
 
+After clone this project, fetched the git submodules:
+
+```sh
+git submodule update --init --recursive
+```
+
 We use [devbox](https://www.jetify.com/devbox) to install the necessary packages.
 
 Install [devbox](https://www.jetify.com/docs/devbox/quickstart/) (do it only once):
