@@ -4,6 +4,8 @@ Lick.debug = true
 Lick.reset = true
 Lick.showReloadMessage = true
 Lick.clearPackages = true
+Lick.entryPoint = "main.lua"
+Lick.fileExtensions = { ".lua", ".ogg", ".png" }
 
 local Assets = require "assets"
 local Rectangles = require "rectangles"
